@@ -6,7 +6,7 @@ COPY package.json package-lock.json /app/
 
 RUN npm install
 
-COPY index.js .
+COPY . .
 
 EXPOSE 8080
 

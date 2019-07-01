@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package api;
+
+import "google/protobuf/empty.proto";
+
+service DcmApiDatabaseService {
+    rpc InsertItem (InsertItemRequest) returns (google.protobuf.Empty);
+    rpc GetItems (GetItemsRequest) returns (GetItemsResponse);
+}
+
+message Metric {
+    float average = 1;
+    float median = 2;
+    float variance = 3;
+    float standard_deviation = 4;
+    float mode = 5;
+}
+
+message InsertItemRequest {
+    string topic_id = 1;
+    repeated Metric metrics = 2;
+}
+
+message GetItemsRequest {
+    string topic_name = 1;
+    int32 minutes_ago = 2;
+}
+
+message GetItemsResponse {
+    repeated Metric metrics = 1;
+}
