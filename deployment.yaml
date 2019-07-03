@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-api
+  template:
+    metadata:
+      labels:
+        app: front-api
+    spec:
+      containers:
+        - name: api
+          image: esvm/front-api
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GRPC_HOST
+              value: "104.196.58.169"
+            - name: GRPC_PORT
+              value: "50051"
+            - name: TOPIC_NAME
+              value: "disk_used"
