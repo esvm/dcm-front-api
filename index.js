@@ -1,4 +1,5 @@
 const http = require("http");
+const url = require("url");
 const grpc = require("grpc");
 
 const apiPackage = require("./proto.js").api;
@@ -13,8 +14,10 @@ const api = new apiPackage.DcmApiDatabaseService(
 );
 
 const server = http.createServer((request, response) => {
-  console.log("Requested url: " + request.url);
-  switch (request.url.toLowerCase()) {
+  const url_parts = url.parse(request.url, true);
+  console.log("Requested url: " + url_parts.pathname);
+
+  switch (url_parts.pathname) {
     case "/events":
       response.writeHead(200, {
         Connection: "keep-alive",
@@ -25,8 +28,10 @@ const server = http.createServer((request, response) => {
 
       const payload = {
         topic_name: topic,
-        minutes_ago: 2
+        minutes_ago: url_parts.query.time_ago || 2
       };
+
+      console.log(payload);
 
       api.GetItems(payload, (err, items) => {
         if (err) {
