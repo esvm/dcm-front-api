@@ -24,3 +24,5 @@ spec:
               value: "50051"
             - name: TOPIC_NAME
               value: "disk_used"
+            - name: MINUTES_AGO
+              value: "1"

@@ -6,6 +6,7 @@ const apiPackage = require("./proto.js").api;
 const grpcHost = process.env.GRPC_HOST || "104.196.58.169";
 const grpcPort = process.env.GRPC_PORT || 50051;
 const topic = process.env.TOPIC_NAME || "disk_used";
+const minutesAgo = process.env.MINUTES_AGO || 2;
 
 const api = new apiPackage.DcmApiDatabaseService(
   `${grpcHost}:${grpcPort}`,
@@ -25,7 +26,7 @@ const server = http.createServer((request, response) => {
 
       const payload = {
         topic_name: topic,
-        minutes_ago: 2
+        minutes_ago: minutesAgo
       };
 
       api.GetItems(payload, (err, items) => {
