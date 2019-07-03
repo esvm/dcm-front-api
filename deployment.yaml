@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: esvm/front-api
+          image: esvm/dcm-front-api
           ports:
             - containerPort: 8080
           env:
@@ -24,3 +24,5 @@ spec:
               value: "50051"
             - name: TOPIC_NAME
               value: "disk_used"
+            - name: MINUTES_AGO
+              value: "1"
